@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PayShield AI - AI-Based UPI Fraud Pattern Detection System</title>
+    <meta name="description" content="PayShield AI is a premium academic prototype for detecting suspicious UPI transactions using behavioral AI, anomaly detection, and NLP scan signals.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <script>
+
+let currentUser =
+JSON.parse(localStorage.getItem("currentUser"));
+
+if(currentUser == null){
+    window.location.href = "login.html";
+}
+
+</script>
+    
+    <!-- Background glowing blobs for futuristic ambient styling -->
+    <div class="glow-bg-blob blob-1"></div>
+    <div class="glow-bg-blob blob-2"></div>
+    <div class="glow-bg-blob blob-3"></div>
+
+    <div class="app-container">
+        <!-- HEADER -->
+        <header class="app-header">
+            <div class="logo-area">
+                <div class="shield-logo-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                        <path d="M12 8v4M12 16h.01"/>
+                    </svg>
+                </div>
+                <div class="logo-text">
+                    <h1>PayShield <span class="accent-text">AI</span></h1>
+                    <span class="tagline">Behavioral UPI Fraud Pattern Detection</span>
+                </div>
+            </div>
+            <div class="header-status-area">
+                <div class="system-status">
+                    <span class="status-dot pulsing"></span>
+                    <span class="status-text">Simulated AI Core: Active</span>
+                </div>
+                <div class="viva-badge">
+                    <span>Academic Project Submission • 2026</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- MAIN LAYOUT GRID -->
+        <div class="main-dashboard-grid">
+            
+            <!-- LEFT COLUMN: LIVE STREAM (SIMULATED EVENT MONITOR) -->
+            <aside class="live-stream-panel glass-card">
+                <div class="panel-header">
+                    <div class="header-title-wrapper">
+                        <svg class="panel-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                        </svg>
+                        <h2>Live UPI Network Stream</h2>
+                    </div>
+                    <span class="badge badge-success-outline blinking">LIVE MONITOR</span>
+                </div>
+                <p class="panel-desc">Real-time simulation of incoming transactions across NPCI UPI gateways.</p>
+                
+                <div class="stream-container" id="live-stream-container">
+                    <!-- Dynamic live cards will be injected here via app.js -->
+                    <div class="stream-placeholder">Connecting to live stream...</div>
+                </div>
+            </aside>
+
+            <!-- CENTER & RIGHT COMBINED AREA: SCANNER & ACTIVE INTEL -->
+            <main class="core-scanning-area">
+                
+                <div class="scan-grid">
+                    <!-- SCAN INPUT FORM -->
+                    <section class="scan-form-panel glass-card">
+                        <div class="panel-header">
+                            <div class="header-title-wrapper">
+                                <svg class="panel-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                                    <line x1="8" y1="21" x2="16" y2="21"/>
+                                    <line x1="12" y1="17" x2="12" y2="21"/>
+                                </svg>
+                                <h2>Transaction Scanner Engine</h2>
+                            </div>
+                            <span class="badge badge-primary">BEHAVIORAL INPUT</span>
+                        </div>
+                        
+                        <form id="upi-scan-form" onsubmit="return false;">
+                            <!-- ROW 1: RECEIVER UPI & AMOUNT -->
+                            <div class="form-row">
+                                <div class="form-group flex-2">
+                                    <label for="input-upi-id">Receiver UPI ID (VPA) <span class="required">*</span></label>
+                                    <div class="input-wrapper">
+                                        <span class="input-prefix">@</span>
+                                        <input type="text" id="input-upi-id" placeholder="e.g. payment@upi or refund-helpline@sbi" required>
+                                    </div>
+                                    <span class="input-help" id="upi-help-text">Instant VPA structure syntax checker active.</span>
+                                </div>
+                                <div class="form-group flex-1">
+                                    <label for="input-amount">Amount (₹) <span class="required">*</span></label>
+                                    <input type="number" id="input-amount" placeholder="Min ₹10" min="10" max="1000000" required>
+                                    <div class="amount-quick-tags">
+                                        <button type="button" class="btn-tag" data-val="1000">₹1K</button>
+                                        <button type="button" class="btn-tag" data-val="5000">₹5K</button>
+                                        <button type="button" class="btn-tag" data-val="25000">₹25K</button>
+                                        <button type="button" class="btn-tag" data-val="50000">₹50K</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- ROW 2: TIME OF TRANSACTION & FREQUENCY -->
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="input-time-window">Time window <span class="required">*</span></label>
+                                    <select id="input-time-window">
+                                        <option value="daytime">Daytime Peak (9 AM - 6 PM)</option>
+                                        <option value="evening">Evening Routine (6 PM - 12 AM)</option>
+                                        <option value="early">Early Morning (5 AM - 9 AM)</option>
+                                        <option value="midnight" selected>Midnight Window (12 AM - 5 AM) [Peak Fraud]</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="input-frequency">Tx Frequency (Last 10 Min) <span class="required">*</span></label>
+                                    <div class="slider-container">
+                                        <input type="range" id="input-frequency" min="1" max="10" value="1">
+                                        <span class="slider-display" id="frequency-val">1 transaction</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- ROW 3: LOCATION & RECEIVER ACCOUNT AGE -->
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="input-location">Location Verification <span class="required">*</span></label>
+                                    <select id="input-location">
+                                        <option value="trusted">Trusted/Home Region (Same City)</option>
+                                        <option value="state">Different State Region (Within India)</option>
+                                        <option value="vpn">VPN / Proxy / Anonymous IP detected</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="input-account-age">Receiver Account Age <span class="required">*</span></label>
+                                    <select id="input-account-age">
+                                        <option value="trusted">Trusted Account (> 3 Months Active)</option>
+                                        <option value="new">Fresh Account (Created < 7 Days Ago) [High Risk]</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- ROW 4: DEVICE SEGMENT & TRANSACTION REMARK -->
+                            <div class="form-row">
+                                <div class="form-group flex-1">
+                                    <label class="toggle-label">Device Security & Integrity</label>
+                                    <div class="device-flag-selector">
+                                        <label class="chip-checkbox-label">
+                                            <input type="checkbox" id="input-device-rooted">
+                                            <span class="chip-checkbox">
+                                                <svg class="chip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                                                    <line x1="12" y1="9" x2="12" y2="13"/>
+                                                    <line x1="12" y1="17" x2="12.01" y2="17"/>
+                                                </svg>
+                                                Jailbroken/Rooted Device
+                                            </span>
+                                        </label>
+                                    </div>
+                                    <span class="input-help">Rooted systems bypass safety layers.</span>
+                                </div>
+                                <div class="form-group flex-2">
+                                    <label for="input-remarks">Transaction Remarks / Note (NLP Scan)</label>
+                                    <input type="text" id="input-remarks" placeholder="e.g. Free reward prize claim, urgently pay fee, lucky draw" value="lottery prize won claim urgently">
+                                    <span class="input-help text-amber">Our NLP checks for social engineering phrasing.</span>
+                                </div>
+                            </div>
+
+                            <!-- SUBMIT BUTTON -->
+                            <button type="submit" id="btn-submit-scan" class="btn-scan-submit">
+                                <span class="btn-text">Run Multi-Signal Security Scan</span>
+                                <div class="btn-loader hidden" id="scan-btn-spinner"></div>
+                            </button>
+                        </form>
+
+                        <div class="live-estimate-bar">
+                            <span class="estimate-label">Live Threat Indicator (Simulated Preview):</span>
+                            <span class="estimate-value" id="live-threat-estimate">Calculating...</span>
+                        </div>
+                    </section>
+
+                    <!-- ANALYSIS REPORT CARD -->
+                    <section class="intel-report-panel glass-card" id="intel-report-container">
+                        <div class="panel-header">
+                            <div class="header-title-wrapper">
+                                <svg class="panel-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                                    <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+                                    <line x1="12" y1="22.08" x2="12" y2="12"/>
+                                </svg>
+                                <h2>AI Threat Intelligence Report</h2>
+                            </div>
+                        </div>
+
+                        <!-- Scan state 1: Empty (Prompt to scan) -->
+                        <div class="intel-state-empty" id="intel-state-empty">
+                            <div class="empty-vector">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <path d="M12 8v4M12 16h.01"/>
+                                </svg>
+                            </div>
+                            <h3>Awaiting Security Input</h3>
+                            <p>Configure and submit a UPI payment query to generate a behavioral risk report, multi-dimensional score breakdown, and Explainable AI explanation.</p>
+                        </div>
+
+                        <!-- Scan state 2: Loaded Report -->
+                        <div class="intel-state-loaded hidden" id="intel-state-loaded">
+                            
+                            <!-- Gauge and Overall Verdict -->
+                            <div class="verdict-summary-box">
+                                <div class="gauge-wrapper">
+                                    <!-- Animated Semicircular SVG Gauge -->
+                                    <svg class="risk-gauge" viewBox="0 0 120 70">
+                                        <!-- Gauge Track -->
+                                        <path class="gauge-track" d="M10 60 A 50 50 0 0 1 110 60" fill="none" stroke-width="8"></path>
+                                        <!-- Gauge Fill (Animate stroke-dashoffset) -->
+                                        <path class="gauge-fill" id="risk-gauge-fill" d="M10 60 A 50 50 0 0 1 110 60" fill="none" stroke-width="8" stroke-dasharray="157" stroke-dashoffset="157"></path>
+                                        <!-- Gauge Needle -->
+                                        <line class="gauge-needle" id="risk-gauge-needle" x1="60" y1="60" x2="60" y2="20" stroke-width="3" stroke-linecap="round"></line>
+                                    </svg>
+                                    <div class="gauge-data">
+                                        <span class="gauge-num" id="risk-score-value">0%</span>
+                                        <span class="gauge-label">RISK PROBABILITY</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="verdict-badges-wrapper">
+                                    <div class="verdict-badge" id="risk-verdict-badge">SAFE</div>
+                                    <div class="verdict-timestamp" id="risk-timestamp">Analyzed just now</div>
+                                </div>
+                            </div>
+
+                            <!-- Multi-Dimensional Explanations (Explainable AI - XAI) -->
+                            <div class="xai-dimension-block">
+                                <h3>Multi-Dimensional Feature Attribution</h3>
+                                <p class="xai-subtext">How each behavioral vector influenced this specific classification:</p>
+                                
+                                <div class="metric-progress-list">
+                                    <div class="progress-bar-group">
+                                        <div class="bar-labels">
+                                            <span>Transaction Value Risk</span>
+                                            <span class="bar-percent" id="attribution-amount-percent">0%</span>
+                                        </div>
+                                        <div class="bar-track">
+                                            <div class="bar-fill bg-coral" id="attribution-amount-fill" style="width: 0%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="progress-bar-group">
+                                        <div class="bar-labels">
+                                            <span>Temporal & Location Anomaly</span>
+                                            <span class="bar-percent" id="attribution-time-percent">0%</span>
+                                        </div>
+                                        <div class="bar-track">
+                                            <div class="bar-fill bg-orange" id="attribution-time-fill" style="width: 0%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="progress-bar-group">
+                                        <div class="bar-labels">
+                                            <span>Behavioral Signals (Freq / Device)</span>
+                                            <span class="bar-percent" id="attribution-device-percent">0%</span>
+                                        </div>
+                                        <div class="bar-track">
+                                            <div class="bar-fill bg-cyan" id="attribution-device-fill" style="width: 0%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="progress-bar-group">
+                                        <div class="bar-labels">
+                                            <span>Social Engineering (NLP intent)</span>
+                                            <span class="bar-percent" id="attribution-nlp-percent">0%</span>
+                                        </div>
+                                        <div class="bar-track">
+                                            <div class="bar-fill bg-purple" id="attribution-nlp-fill" style="width: 0%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Flagged Anomaly Explanations (Fraud Reason Engine) -->
+                            <div class="flagged-reasons-block">
+                                <h3>Active Behavioral Flags Triggered:</h3>
+                                <ul class="reasons-list" id="reasons-list-container">
+                                    <!-- Injected dynamically via app.js -->
+                                </ul>
+                            </div>
+
+                            <!-- Educational Action Item for User -->
+                            <div class="safety-advisory-block" id="safety-advisory-box">
+                                <div class="advisory-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                                    </svg>
+                                </div>
+                                <div class="advisory-text">
+                                    <strong>PayShield Guard Advisory:</strong>
+                                    <p id="safety-advisory-text">Always verify the beneficiary name before confirming any fast UPI payments.</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </section>
+                </div>
+
+                <!-- ANALYTICS PANEL & CUSTOM GRAPHS -->
+                <section class="analytics-panel glass-card">
+                    <div class="panel-header">
+                        <div class="header-title-wrapper">
+                            <svg class="panel-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="18" y1="20" x2="18" y2="10"/>
+                                <line x1="12" y1="20" x2="12" y2="4"/>
+                                <line x1="6" y1="20" x2="6" y2="14"/>
+                            </svg>
+                            <h2>Global Analytics Dashboard & Risk Trends</h2>
+                        </div>
+                        <span class="badge badge-success">ACTIVE SESSION STATISTICS</span>
+                    </div>
+
+                    <!-- STATISTICS STAT CARDS -->
+                    <div class="stats-grid">
+                        <div class="stat-mini-card">
+                            <span class="stat-label">Transactions Audited</span>
+                            <span class="stat-number" id="stat-total-scans">24</span>
+                            <span class="stat-subtext text-cyan">▲ 18% in last hour</span>
+                        </div>
+                        <div class="stat-mini-card">
+                            <span class="stat-label">Anomalies Blocked</span>
+                            <span class="stat-number text-red" id="stat-total-fraud">3</span>
+                            <span class="stat-subtext text-red">12.5% Detection Rate</span>
+                        </div>
+                        <div class="stat-mini-card">
+                            <span class="stat-label">Safe Verified rate</span>
+                            <span class="stat-number text-green" id="stat-safe-rate">87.5%</span>
+                            <span class="stat-subtext text-green">Optimal health</span>
+                        </div>
+                        <div class="stat-mini-card">
+                            <span class="stat-label">Session Scanned Volume</span>
+                            <span class="stat-number" id="stat-volume">₹2,84,300</span>
+                            <span class="stat-subtext text-purple">NPCI Gateway Mock</span>
+                        </div>
+                    </div>
+
+                    <!-- CUSTOM RESPONSIVE SVG CHARTS -->
+                    <div class="charts-flex-wrapper">
+                        <!-- CHART 1: 24h ACTIVITY LINE CHART -->
+                        <div class="chart-box">
+                            <h3>24-Hour Fraud Pattern Activity</h3>
+                            <div class="svg-chart-container" id="line-chart-wrapper">
+                                <!-- Generated dynamically using responsive SVG via app.js -->
+                                <svg class="responsive-svg-chart" id="svg-line-chart" viewBox="0 0 400 180" preserveAspectRatio="none">
+                                    <defs>
+                                        <linearGradient id="chart-area-grad" x1="0" y1="0" x2="0" y2="1">
+                                            <stop offset="0%" stop-color="var(--accent-primary)" stop-opacity="0.3"/>
+                                            <stop offset="100%" stop-color="var(--accent-primary)" stop-opacity="0.0"/>
+                                        </linearGradient>
+                                    </defs>
+                                    <!-- Axes Lines -->
+                                    <line x1="40" y1="10" x2="40" y2="150" stroke="var(--border-color)" stroke-width="1"/>
+                                    <line x1="40" y1="150" x2="380" y2="150" stroke="var(--border-color)" stroke-width="1"/>
+                                    <!-- Grid lines -->
+                                    <line x1="40" y1="45" x2="380" y2="45" stroke="var(--border-color)" stroke-dasharray="3,3" stroke-width="1"/>
+                                    <line x1="40" y1="80" x2="380" y2="80" stroke="var(--border-color)" stroke-dasharray="3,3" stroke-width="1"/>
+                                    <line x1="40" y1="115" x2="380" y2="115" stroke="var(--border-color)" stroke-dasharray="3,3" stroke-width="1"/>
+                                    <!-- Chart Grid Labels -->
+                                    <text x="15" y="48" font-size="8" fill="var(--text-muted)">High</text>
+                                    <text x="15" y="83" font-size="8" fill="var(--text-muted)">Med</text>
+                                    <text x="15" y="118" font-size="8" fill="var(--text-muted)">Low</text>
+                                    <!-- Neon line and area will be injected via JS -->
+                                    <path id="svg-line-path-area" d="" fill="url(#chart-area-grad)"></path>
+                                    <path id="svg-line-path-stroke" d="" fill="none" stroke="var(--accent-primary)" stroke-width="2.5"></path>
+                                    
+                                    <!-- Interactive Dots -->
+                                    <g id="line-chart-dots"></g>
+                                    <!-- Time Labels (x-axis) -->
+                                    <text x="50" y="165" font-size="9" fill="var(--text-muted)" text-anchor="middle">02:00</text>
+                                    <text x="110" y="165" font-size="9" fill="var(--text-muted)" text-anchor="middle">06:00</text>
+                                    <text x="170" y="165" font-size="9" fill="var(--text-muted)" text-anchor="middle">10:00</text>
+                                    <text x="230" y="165" font-size="9" fill="var(--text-muted)" text-anchor="middle">14:00</text>
+                                    <text x="290" y="165" font-size="9" fill="var(--text-muted)" text-anchor="middle">18:00</text>
+                                    <text x="350" y="165" font-size="9" fill="var(--text-muted)" text-anchor="middle">22:00</text>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <!-- CHART 2: RISK BAR CHART -->
+                        <div class="chart-box">
+                            <h3>Risk Distribution by Amount Bracket</h3>
+                            <div class="svg-chart-container" id="bar-chart-wrapper">
+                                <svg class="responsive-svg-chart" id="svg-bar-chart" viewBox="0 0 400 180" preserveAspectRatio="none">
+                                    <!-- Grid & Axes -->
+                                    <line x1="40" y1="10" x2="40" y2="150" stroke="var(--border-color)" stroke-width="1"/>
+                                    <line x1="40" y1="150" x2="380" y2="150" stroke="var(--border-color)" stroke-width="1"/>
+                                    <!-- Grid lines -->
+                                    <line x1="40" y1="45" x2="380" y2="45" stroke="var(--border-color)" stroke-dasharray="3,3" stroke-width="1"/>
+                                    <line x1="40" y1="80" x2="380" y2="80" stroke="var(--border-color)" stroke-dasharray="3,3" stroke-width="1"/>
+                                    <line x1="40" y1="115" x2="380" y2="115" stroke="var(--border-color)" stroke-dasharray="3,3" stroke-width="1"/>
+                                    
+                                    <text x="15" y="48" font-size="8" fill="var(--text-muted)">100%</text>
+                                    <text x="15" y="83" font-size="8" fill="var(--text-muted)">50%</text>
+                                    <text x="15" y="118" font-size="8" fill="var(--text-muted)">10%</text>
+                                    
+                                    <!-- Bars will be injected dynamically via JS -->
+                                    <g id="bar-chart-bars-group"></g>
+                                    
+                                    <!-- Labels (x-axis) -->
+                                    <text x="80" y="165" font-size="9" fill="var(--text-muted)" text-anchor="middle">₹10-1K</text>
+                                    <text x="150" y="165" font-size="9" fill="var(--text-muted)" text-anchor="middle">₹1K-5K</text>
+                                    <text x="220" y="165" font-size="9" fill="var(--text-muted)" text-anchor="middle">₹5K-15K</text>
+                                    <text x="290" y="165" font-size="9" fill="var(--text-muted)" text-anchor="middle">₹15K-50K</text>
+                                    <text x="355" y="165" font-size="9" fill="var(--text-muted)" text-anchor="middle">₹50K+</text>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- AUDIT TRAIL / LOGS HISTORY -->
+                <section class="audit-history-panel glass-card">
+                    <div class="panel-header">
+                        <div class="header-title-wrapper">
+                            <svg class="panel-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                <polyline points="14 2 14 8 20 8"/>
+                                <line x1="16" y1="13" x2="8" y2="13"/>
+                                <line x1="16" y1="17" x2="8" y2="17"/>
+                                <polyline points="10 9 9 9 8 9"/>
+                            </svg>
+                            <h2>Compliance Scan History & Audit Trail</h2>
+                        </div>
+                        <button class="btn-export-csv" id="btn-export-csv">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                <polyline points="7 10 12 15 17 10"/>
+                                <line x1="12" y1="15" x2="12" y2="3"/>
+                            </svg>
+                            Export Audit CSV
+                        </button>
+                    </div>
+                    <p class="panel-desc">A cryptographically traced session ledger recording client device integrity and transaction evaluations.</p>
+                    
+                    <div class="table-container">
+                        <table class="audit-table">
+                            <thead>
+                                <tr>
+                                    <th>Timestamp</th>
+                                    <th>Beneficiary UPI VPA</th>
+                                    <th>Amount</th>
+                                    <th>Risk Score</th>
+                                    <th>Threat Level</th>
+                                    <th>Triggered Flags Summary</th>
+                                </tr>
+                            </thead>
+                            <tbody id="audit-table-body">
+                                <!-- Injected dynamically via app.js -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                
+            </main>
+        </div>
+        
+        <!-- FOOTER -->
+        <footer class="app-footer">
+            <div class="footer-content">
+                <p>PayShield AI — Multi-Factor Anomaly & Fraud Intent Analytics System for Digital UPI Gateway Interception.</p>
+                <div class="footer-links">
+                    <span>IEEE-Format Prototype</span>
+                    <span>•</span>
+                    <span>Explainable AI (XAI) Model Design</span>
+                    <span>•</span>
+                    <span>Privacy Policy (Simulated Sandbox)</span>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Main JavaScript File -->
+    <script src="app.js"></script>
+    
+</body>
+</html>
